@@ -1,0 +1,120 @@
+ke<!DOCTYPE HTML>
+<html>
+    <head>
+        <title> List Hotels</title>
+    </head>
+    <body>
+        <p><b> Cost per night from (1000$)</b></p>
+        <input type = "number" id = "CostFrom">
+        <p><b>Cost per night before (10000$)</b></p>
+        <input type = "number" id = "CostTo"><br>
+        <p>
+        <input type = "button" id = "List" value = "Search">
+        </p></b>
+              
+        <ol id="listHotels"><\ol>
+        <p>List of all hotels</p>
+        <p>
+        <ol id="yourListHotel"><\ol>
+        <p>Hotels on your request</p>
+        </p>
+        <script>
+        
+        window.onload = init;
+        
+        let hotels =[];
+
+        let hotel1 ={
+            name : "Global Park",
+            price : 1000
+        };
+        let hotel2 ={
+            name : "White hight",
+            price : 1500
+        };
+        let hotel3 ={
+            name : "Repino Star",
+            price : 2000
+        };
+        let hotel4 ={
+            name : "Luno Park",
+            price : 2500
+        };
+        let hotel5 ={
+            name : "Russia",
+            price : 3000
+        };
+        let hotel6 ={
+            name : "Petergoff",
+            price : 5000
+        };
+        let hotel7 ={
+            name : "Sennauy",
+            price : 8000
+        };
+        let hotel8 ={
+            name : "Park 312",
+            price : 9000
+        };
+        let hotel9 ={
+            name : "Global Word",
+            price : 10000
+        };
+        let hotel10 ={
+            name : "Pinky",
+            price : 9500
+        };
+        hotels.push(hotel1,hotel2,hotel3,hotel4,hotel5,hotel6,hotel7,hotel8,hotel9,hotel10);
+        
+        fillList(hotels, "listHotels");
+        
+        
+        function init (){
+            let button = document.getElementById("List")
+            button.onclick = listClick;
+        }
+        function listClick(){
+            let from = document.getElementById("CostFrom")
+            let to = document.getElementById("CostTo")
+                
+            let filteredHotels = findHotelPrice(+from.value, +to.value);
+                
+            from.value = ''
+            to.value = ''
+            console.log(filteredHotels);
+            fillList(filteredHotels, "yourListHotel");
+            
+            //fillList(hotels, "listHotels");
+        }
+    
+        function findHotelPrice(fromPrice, toPrice){
+            
+            let hotelsSame = [];
+
+            for (let i=0; i < hotels.length; i++){
+                if (hotels[i].price >= fromPrice && 
+                    hotels[i].price <= toPrice)
+                {
+                    hotelsSame.push(hotels[i])
+                } 
+            }
+            
+            return hotelsSame;
+        }
+         
+        function fillList(hotels, listId){
+
+         let listElementList = document.getElementById(listId)
+            for (let i = 0; i < hotels.length; i++){
+                let hotel = hotels[i]
+                let li = "<li>" + hotel.name + " " + hotel.price + "</li>"
+                listElementList.innerHTML += li;    
+            }
+        }    
+            
+        </script>       
+    </body>
+
+
+
+</html>
