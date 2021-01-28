@@ -1,0 +1,85 @@
+
+<!doctype html>
+<html>
+  <head>
+    <title> Users</title>
+  </head>
+  <body>
+      <ol id="resultList"> 
+        <li></li>
+      </ol>
+
+
+<script>
+
+let users= [];
+
+let user1 ={
+    name : 'Anna',
+    age : 50
+};
+
+let user2 ={
+    name : 'Inna',
+    age : 200
+};
+
+let user3 ={
+    name : 'Pert',
+    age : 200
+    };
+let user4 ={
+    name : 'Duna',
+    age : 200
+};
+let user5 ={
+    name : 'Dark',
+    age : 100
+};
+ 
+users.push(user1,user2, user3,user4,user5);
+console.log(users);
+
+let oldest = users[0];
+
+for (let i=0; i < users.length; i++){
+    if (oldest.age < users[i].age){
+        oldest = users[i]
+    
+    }
+    
+}
+console.log(oldest);
+let oldestSame = [];
+
+for (let i = 0; i < users.length; i++){
+    if (oldest.age == users[i].age){
+        oldestSame.push(users[i]);
+    }    
+}
+console.log(oldestSame);
+
+let listElement= document.getElementById("resultList")
+        //console.log(listElement.innerText);
+        //console.log(listElement.innerHTML);
+        //listElement.innerHTML = listElement.innerHTML + '<li>qwe</li>';
+for (let i = 0; i < oldestSame.length; i++) { 
+    let user = oldestSame [i]
+    let li = '<li>' + user.name + ' '+ user.age + '</li>'    
+
+    listElement.innerHTML += li;
+    
+}
+
+        
+        
+        
+        //console.log(listElement.innerHTML);
+        //listElement.innerHTML = '<li>zxc</li>';
+          
+//let listHtml = '';
+
+
+
+
+</script>
