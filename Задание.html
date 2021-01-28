@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<script>
+'use strict';// ctrl+z - отмена если хочешь что то вернуть!!//
+
+let action =  prompt('what action do you want to perform? * - / + ','');
+let digit = +prompt(" how many digits will be entered?",'');
+let count=0;
+for (let i=0; i < digit; i++) {
+    let v = +prompt('enter value please','');
+    if (action =='-' ) {    
+        count = v - count;
+    } else if (action =='+' ){    
+        count = v + count;
+    } else if (action =='*'){
+        if (i==0) {
+            count =v;
+        }else{
+            count = v * count;
+        }
+            
+    } else if (action =='/'){
+        if (i==0) {
+            count =v;
+        }else{
+            count = v / count;
+        }
+    }
+} //for
+    
+ alert ('res=' + count);
+
+
+/*let ferst = +prompt(" enter ferst digit please",'');
+let second = +prompt(" enter second digit please",''); 
+let therd = +prompt(" enter therd digit please",'');
+alert((ferst)+(second)+(therd));*/
+
+</script>
