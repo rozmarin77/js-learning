@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+  <head>
+    <title> Anketa</title>
+  </head>
+  <body>
+      <ol id="resultList"> 
+        <li>a</li>
+        <li>b</li>
+        <li>c</li>
+      </ol>
+      
+      <script>
+
+        let listElement= document.getElementById("resultList")
+        //console.log(listElement.innerText);
+        console.log(listElement.innerHTML);
+        listElement.innerHTML = listElement.innerHTML + '<li>qwe</li>';
+        listElement.innerHTML += '<li>qwe</li>';
+        console.log(listElement.innerHTML);
+        //listElement.innerHTML = '<li>zxc</li>';
+          
+      </script>
+      
+      
+      
+      
+      
+      
+  </body>
+
+
+</html>
