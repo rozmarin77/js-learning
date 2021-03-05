@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>List manager</title>
+</head>
+<body>
+    <p><b>
+    <input type="button" id="ShowList" value="Show">
+    </p></b>
+    <p><b>
+    <input type="button" id="CleanList" value="Clean">
+    </p></b>
+    <p>List of all employees</p>
+    <ol id="listemployees">
+    </ol>
+    <script>
+
+        window.onload = init;
+
+        let employeesListManager = new ListManager("listemployees");// с помощью нью записываем в переменную функцию с новым объектом
+    
+        let employees = [];// наш старый массив
+
+        let employee1 = {
+            name: "Anna",
+           age: 47
+        };
+        let employee2 = {
+            name: "Wolf",
+            age: 67
+        };
+        let employee3 = {
+            name: "Georg",
+            age: 34
+        };
+        employees.push(employee1, employee2, employee3);
+       
+        
+        function init() {
+            let button = document.getElementById("ShowList")
+            button.onclick = ShowClick;
+
+            let buttonSort = document.getElementById("CleanList")
+            buttonSort.onclick = CleanClick;
+        }
+
+        function ShowClick (){//переписываем функции под новый объект
+            employeesListManager.fill(employees);
+        }
+
+        function CleanClick(){// тоже самое
+            employeesListManager.clean();
+        }
+
+        function ListManager(id){// функция под нью с this
+            this.listId = id;
+        
+            this.clean = function() {//очищаем элемент
+            let listElement = document.getElementById(this.listId)
+            listElement.innerHTML = '';
+            }
+            
+            this.fill = function(persons){//ЗАПОЛНЯЕМ
+            let listElement = document.getElementById(this.listId)
+            listElement.innerHTML = '';
+                for (let i = 0; i < persons.length; i++) {    
+                     let person = persons[i]
+                     let li = '<li>' + person.name + ' '+ person.age + '</li>'  
+                     listElement.innerHTML += li;   
+                }
+            }
+        }
+    
+    
+            </script>
+
+    </body>
+    </html>

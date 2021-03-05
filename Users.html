@@ -45,9 +45,7 @@ let oldest = users[0];
 for (let i=0; i < users.length; i++){
     if (oldest.age < users[i].age){
         oldest = users[i]
-    
     }
-    
 }
 console.log(oldest);
 let oldestSame = [];
@@ -62,24 +60,11 @@ console.log(oldestSame);
 let listElement= document.getElementById("resultList")
         //console.log(listElement.innerText);
         //console.log(listElement.innerHTML);
-        //listElement.innerHTML = listElement.innerHTML + '<li>qwe</li>';
 for (let i = 0; i < oldestSame.length; i++) { 
     let user = oldestSame [i]
     let li = '<li>' + user.name + ' '+ user.age + '</li>'    
 
     listElement.innerHTML += li;
-    
 }
-
-        
-        
-        
-        //console.log(listElement.innerHTML);
-        //listElement.innerHTML = '<li>zxc</li>';
-          
-//let listHtml = '';
-
-
-
 
 </script>

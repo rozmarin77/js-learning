@@ -1,119 +1,156 @@
-ke<!DOCTYPE HTML>
+<!DOCTYPE HTML>
 <html>
-    <head>
-        <title> List Hotels</title>
-    </head>
-    <body>
-        <p><b> Price From</b></p>
-        <input type = "number" id = "CostFrom">
-        <p><b>Price To</b></p>
-        <input type = "number" id = "CostTo"><br>
-        <p>
-        <input type = "button" id = "List" value = "Search">
-        </p></b>
-              
-        <ol id="listHotels"><\ol>
-        <p>List of all hotels</p>
-        <p>
-        <ol id="yourListHotel"><\ol>
-        <p>Hotels on your request</p>
-        </p>
-        <script>
-        
-        window.onload = init;
-        
-        let hotels =[];
 
-        let hotel1 ={
-            name : "Global Park",
-            price : 1000
+<head>
+    <title> List Hotels</title>
+</head>
+
+<body>
+    <p><b> Price From</b></p>
+    <input type="number" id="CostFrom">
+    <p><b>Price To</b></p>
+    <input type="number" id="CostTo"><br>
+    <p>
+    <input type="button" id="List" value="Search">
+    </p></b>
+    <p>
+    <input type="button" id="Sort" value="Sorting hotels by price" </p>
+    <p>List of all hotels</p>
+    <ol id="listHotels">
+
+    </ol>
+    <p>
+    <p>Hotels on your request</p>
+    <ol id="yourListHotel"></ol>
+    </p>
+    <script>
+
+        window.onload = init;
+
+        let hotels = [];//создали массив
+
+        let hotel1 = {//объекты с свойствами
+            name: "Global Park",
+            price: 1000
         };
-        let hotel2 ={
-            name : "White hight",
-            price : 1500
+        let hotel2 = {
+            name: "White hight",
+            price: 1500
         };
-        let hotel3 ={
-            name : "Repino Star",
-            price : 2000
+        let hotel3 = {
+            name: "Repino Star",
+            price: 2800
         };
-        let hotel4 ={
-            name : "Luno Park",
-            price : 2500
+        let hotel4 = {
+            name: "Luno Park",
+            price: 2000
         };
-        let hotel5 ={
-            name : "Russia",
-            price : 3000
+        let hotel5 = {
+            name: "Russia",
+            price: 3000
         };
-        let hotel6 ={
-            name : "Petergoff",
-            price : 5000
+        let hotel6 = {
+            name: "Petergoff",
+            price: 9400
         };
-        let hotel7 ={
-            name : "Sennauy",
-            price : 8000
+        let hotel7 = {
+            name: "Sennauy",
+            price: 8000
         };
-        let hotel8 ={
-            name : "Park 312",
-            price : 9000
+        let hotel8 = {
+            name: "Park 312",
+            price: 700
         };
-        let hotel9 ={
-            name : "Global Word",
-            price : 10000
+        let hotel9 = {
+            name: "Global Word",
+            price: 10000
         };
-        let hotel10 ={
-            name : "Pinky",
-            price : 9500
+        let hotel10 = {
+            name: "Pinky",
+            price: 9500
         };
-        hotels.push(hotel1,hotel2,hotel3,hotel4,hotel5,hotel6,hotel7,hotel8,hotel9,hotel10);
+        hotels.push(hotel1, hotel2, hotel3, hotel4, hotel5, hotel6, hotel7, hotel8, hotel9, hotel10);
         
+        //hotels.sort ((prev, next )=> next.price - prev.price);//сортировка по свойству
+        //объекта, у нас по цене
+        //hotels.length =0
         fillList(hotels, "listHotels");
+
+        function sortByPrice() {
+            
+            let sortHotels = [];//создали массив
+            while (hotels.length > 0) {//проверка мин.цены идет пока не закончаться все отели в списке
+                
+                let hotelWithMinPrice = hotels[0];//первый отель под индексом 0
+                let indexWithMinPrice = 0;//создали переменную для поиска отеля с мин.ценой по индексу
+                
+                for (i = 1; i < hotels.length; i++) {
+                    if (hotelWithMinPrice.price > hotels[i].price) {
+                        hotelWithMinPrice = hotels[i]
+                        indexWithMinPrice = i;//нашли индекс мин.цены отеля
+                    }
+                }
+                
+                sortHotels.push(hotelWithMinPrice); //заполнили масив одним отелем с мин.ценой
+                let removed = hotels.splice(indexWithMinPrice, 1);//здесь удаляется индекс с мин.ценой из  
+                console.log(indexWithMinPrice);                   //массива hotels, а после запятой одна штука значит один элмент удалить
+            
+            }
+            
+            console.log(sortHotels)
+            
+            hotels = sortHotels;//масив хотелс заменяем на отсортированный массив
+            fillList(hotels, "listHotels"); //заполняем массив хотелс
+        }
         
-        
-        function init (){
+        function init() {
             let button = document.getElementById("List")
             button.onclick = listClick;
+
+            let buttonSort = document.getElementById("Sort")
+            buttonSort.onclick = sortByPrice;
         }
-        function listClick(){
+        function listClick() {
             let from = document.getElementById("CostFrom")
             let to = document.getElementById("CostTo")
-                
+
             let filteredHotels = findHotelPrice(+from.value, +to.value);
-                
+
             from.value = ''
             to.value = ''
             console.log(filteredHotels);
             fillList(filteredHotels, "yourListHotel");
-            
-            //fillList(hotels, "listHotels");
-        }
-    
-        function findHotelPrice(fromPrice, toPrice){
-            
-            let hotelsSame = [];
 
-            for (let i=0; i < hotels.length; i++){
-                if (hotels[i].price >= fromPrice && 
-                    hotels[i].price <= toPrice)
-                {
-                    hotelsSame.push(hotels[i])
-                } 
+        }
+
+        function findHotelPrice(fromPrice, toPrice) {//поиск отеля по параметрам
+
+            let findHotels = [];//создаем массив
+
+            for (let i = 0; i < hotels.length; i++) {
+                if (hotels[i].price >= fromPrice &&//cравниваем первый отель с первой цифрой в поле фром
+                    hotels[i].price <= toPrice) {//тоже самое но со второй из поля to
+                    findHotels.push(hotels[i])//заполняем массив
+                }
             }
-            
-            return hotelsSame;
-        }
-         
-        function fillList(hotels, listId){
 
-         let listElementList = document.getElementById(listId)
-            for (let i = 0; i < hotels.length; i++){
+            return findHotels; //заполненный массив возвращаем в переменную   
+        }                      //filteredHotelss
+
+
+        function fillList(hotels, listId) {
+
+            let listElementList = document.getElementById(listId)
+            listElementList.innerHTML = '';//очищаем массив hotels чтобы туда попали данные из отсортированного массива sortHotels
+            for (let i = 0; i < hotels.length; i++) {
                 let hotel = hotels[i]
                 let li = "<li>" + hotel.name + " " + hotel.price + "</li>"
-                listElementList.innerHTML += li;    
+                listElementList.innerHTML += li;
             }
-        }    
-            
-        </script>       
-    </body>
+        }
+
+    </script>
+</body>
 
 
 

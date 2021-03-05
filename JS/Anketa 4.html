@@ -7,19 +7,17 @@
 
 <body>
 
-  <p><b>Enter your name </b><br></p>
+  <p><b>Enter your name </b></p>
   <input type="text" id='nameInput'>
 
-  <p><b>Enter your age </b><br></p>
+  <p><b>Enter your age </b></p>
   <input type="number" id='ageInput'><br>
   <p>
-    <input type="button" id='addUser' value="Add user">
+  <input type="button" id='addUser' value="Add user">
   </p></b>
 
   <button id="result">Result</button>
   </p></b>
-
-
 
   <ol id="resultList">
     <li></li>
@@ -29,13 +27,13 @@
 
 
   <script>
-
+   
     window.onload = init;// событие onload это указатель что веб страница полностью загружена, (дочитал до конца) и  код вызовет фунцию инит
     let users = [];
     console.log(users);
 
     function init() {
-
+      
       let button = document.getElementById("addUser")//с начала выполняется то что справа от равно и записывает влево в переменную баттон (означает что человек обращается к документу и выбирает элемент с ID addUser)
       button.onclick = addUserClick;//когда на кнопку человек кликнет она оповещает нас вызывая функцию
 
@@ -56,9 +54,35 @@
 
     function getResult() {
 
-      let oldestPeople = findOldest();
-      fillList(oldestPeople);
+      let oldest = users[0];
 
+      for (let i = 0; i < users.length; i++) {
+        if (oldest.age < users[i].age) {
+          oldest = users[i]
+        }
+        console.log(oldest);
+      }
+
+      
+      let oldestSame = [];
+
+      for (let i = 0; i < users.length; i++) {
+        if (oldest.age == users[i].age) {
+          oldestSame.push(users[i]);
+        }
+      }
+    
+      console.log(oldestSame);
+    
+    let listElement = document.getElementById("resultList")
+    listElement.innerHTML = '';
+    for (let i = 0; i < oldestSame.length; i++) {
+      let user = oldestSame[i]
+      let li = '<li>' + user.name + ' '+ user.age + '</li>'  
+      listElement.innerHTML += li;
+    }
+
+      
     }
 
     function saveUser(nameValue, ageValue) {
@@ -70,39 +94,7 @@
       console.log(users);
     }
 
-    function findOldest() {
 
-      let oldest = users[0];
-
-      for (let i = 0; i < users.length; i++) {
-        if (oldest.age < users[i].age) {
-          oldest = users[i]
-        }
-        console.log(oldest);
-      }
-
-      let oldestSame = [];
-
-      for (let i = 0; i < users.length; i++) {
-        if (oldest.age == users[i].age) {
-          oldestSame.push(users[i]);
-        }
-      }
-
-      return oldestSame;
-    }
-
-    function fillList(users) {
-
-      let listElement = document.getElementById("resultList")
-      listElement.innerHTML = '';
-
-      for (let i = 0; i < users.length; i++) {
-        let user = users[i]
-        let li = '<li>' + user.name + ' ' + user.age + '</li>'
-        listElement.innerHTML += li;
-      }
-    }
 
   </script>
 

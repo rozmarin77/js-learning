@@ -2,109 +2,112 @@
 <html>
 
 <head>
-  <title> Anketa</title>
+    <title> Anketa</title>
 </head>
 
 <body>
 
-  <p><b>Enter your name </b><br></p>
-  <input type="text" id='nameInput'>
+    <p><b>Enter your name </b><br></p>
+    <input type="text" id='nameInput'>
 
-  <p><b>Enter your age </b><br></p>
-  <input type="number" id='ageInput'><br>
-  <p>
-    <input type="button" id='addUser' value="Add user">
-  </p></b>
-
-  <button id="result">Result</button>
-  </p></b>
+    <p><b>Enter your age </b><br></p>
+    <input type="number" id='ageInput'><br>
+    <p>
+        <input type="button" id='addUser' value="Add user">
+    </p></b>
 
 
 
-  <ol id="resultList">
-    <li></li>
-    <li></li>
-    <li></li>
-  </ol>
+    <ol id="users-list">
+        <li></li>
+        <li></li>
+        <li></li>
+    </ol>
+    
+    <p>
+        <ol id="oldest-users-list">
+            <li></li>
+            <li></li>
+            <li></li>
+        </ol>
+    </p>
+    <script>
 
+        window.onload = init;// событие onload это указатель что веб страница полностью загружена, (дочитал до конца) и  код вызовет фунцию инит
+        let users = [];
+        console.log(users);
 
-  <script>
+        function init() {
 
-    window.onload = init;// событие onload это указатель что веб страница полностью загружена, (дочитал до конца) и  код вызовет фунцию инит
-    let users = [];
-    console.log(users);
-
-    function init() {
-
-      let button = document.getElementById("addUser")//с начала выполняется то что справа от равно и записывает влево в переменную баттон (означает что человек обращается к документу и выбирает элемент с ID addUser)
-      button.onclick = addUserClick;//когда на кнопку человек кликнет она оповещает нас вызывая функцию
-
-      let buttonResult = document.getElementById("result")
-      buttonResult.onclick = getResult;
-    }
-
-    function addUserClick() {
-
-      let textName = document.getElementById("nameInput")
-      let textAge = document.getElementById("ageInput")
-
-      saveUser(textName.value, +textAge.value);
-
-      textName.value = ''
-      textAge.value = ''
-    }
-
-    function getResult() {
-
-      let oldestPeople = findOldest();
-      fillList(oldestPeople);
-
-    }
-
-    function saveUser(nameValue, ageValue) {
-      let user = {
-        name: nameValue,
-        age: +ageValue
-      };
-      users.push(user);
-      console.log(users);
-    }
-
-    function findOldest() {
-
-      let oldest = users[0];
-
-      for (let i = 0; i < users.length; i++) {
-        if (oldest.age < users[i].age) {
-          oldest = users[i]
+            let button = document.getElementById("addUser")//с начала выполняется то что справа от равно и записывает влево в переменную баттон (означает что человек обращается к документу и выбирает элемент с ID addUser)
+            button.onclick = addUserClick;//когда на кнопку человек кликнет она оповещает нас вызывая функцию
         }
-        console.log(oldest);
-      }
 
-      let oldestSame = [];
+        function addUserClick() {
 
-      for (let i = 0; i < users.length; i++) {
-        if (oldest.age == users[i].age) {
-          oldestSame.push(users[i]);
+            let textName = document.getElementById("nameInput")
+            let textAge = document.getElementById("ageInput")
+
+            saveUser(textName.value, +textAge.value);
+
+            textName.value = ''
+            textAge.value = ''
+
+            fillList(users, "users-list");
+
+            let oldestPeople = findOldest();
+            fillList(oldestPeople, "oldest-users-list");
         }
-      }
 
-      return oldestSame;
-    }
+        function saveUser(nameValue, ageValue) {
+            let user = {
+                name: nameValue,
+                age: +ageValue
+            };
+            users.push(user);
+            console.log(users);
+        }
 
-    function fillList(users) {
+        function fillList(users, listId) {
 
-      let listElement = document.getElementById("resultList")
-      listElement.innerHTML = '';
+            let listElement = document.getElementById(listId)
+            listElement.innerHTML = '';
 
-      for (let i = 0; i < users.length; i++) {
-        let user = users[i]
-        let li = '<li>' + user.name + ' ' + user.age + '</li>'
-        listElement.innerHTML += li;
-      }
-    }
+            for (let i = 0; i < users.length; i++) {
+                let user = users[i]
+                let li = '<li>' + user.name + ', ' + user.age + '</li>'
+                listElement.innerHTML += li;
+            }
+        }
 
-  </script>
+
+
+
+        function findOldest() {
+
+            let oldest = users[0];
+
+            for (let i = 0; i < users.length; i++) {
+                if (oldest.age < users[i].age) {
+                    oldest = users[i]
+                }
+                console.log(oldest);
+            }
+
+            let oldestSame = [];
+
+            for (let i = 0; i < users.length; i++) {
+                if (oldest.age == users[i].age) {
+                    oldestSame.push(users[i]);
+                }
+            }
+
+            return oldestSame;
+        }
+
+
+
+    </script>
 
 </body>
 

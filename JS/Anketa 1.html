@@ -7,10 +7,10 @@
 
 <body>
 
-  <p><b>Enter your name </b><br></p>
+  <p><b>Enter your name please</b><br></p>
   <input type="text" id='nameInput'>
 
-  <p><b>Enter your age </b><br></p>
+  <p><b>Enter your age please</b><br></p>
   <input type="number" id='ageInput'><br>
   <p>
   <input type="button" id='addUser' value="Add user">
@@ -19,8 +19,6 @@
   <button id="result">Result</button>
   </p></b>
   
-  
-
   <ol id="resultList">
     <li></li>
     <li></li>
@@ -90,6 +88,7 @@ for (let i = 0; i < users.length; i++) {
 return oldestSame;
 console.log(oldestSame);  
     }
+    
     function buildList()
     let listElement = document.getElementById("resultList")
       listElement.innerHTML = '';

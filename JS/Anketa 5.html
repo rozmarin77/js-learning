@@ -7,10 +7,10 @@
 
 <body>
 
-  <p><b>Enter your name </b></p>
+  <p><b>Enter your name </b><br></p>
   <input type="text" id='nameInput'>
 
-  <p><b>Enter your age </b></p>
+  <p><b>Enter your age </b><br></p>
   <input type="number" id='ageInput'><br>
   <p>
   <input type="button" id='addUser' value="Add user">
@@ -18,7 +18,7 @@
 
   <button id="result">Result</button>
   </p></b>
-
+  
   <ol id="resultList">
     <li></li>
     <li></li>
@@ -54,35 +54,9 @@
 
     function getResult() {
 
-      let oldest = users[0];
+      let oldest = findOldest();
+      let Lis = buildList();
 
-      for (let i = 0; i < users.length; i++) {
-        if (oldest.age < users[i].age) {
-          oldest = users[i]
-        }
-        console.log(oldest);
-      }
-
-      
-      let oldestSame = [];
-
-      for (let i = 0; i < users.length; i++) {
-        if (oldest.age == users[i].age) {
-          oldestSame.push(users[i]);
-        }
-      }
-
-      console.log(oldestSame);
-    
-    let listElement = document.getElementById("resultList")
-    listElement.innerHTML = '';
-    for (let i = 0; i < oldestSame.length; i++) {
-      let user = oldestSame[i]
-      let li = '<li>' + user.name + ' '+ user.age + '</li>'  
-      listElement.innerHTML += li;
-    }
-
-      
     }
 
     function saveUser(nameValue, ageValue) {
@@ -93,8 +67,38 @@
       users.push(user);
       console.log(users);
     }
+    
+    function findOldest() {
+    
+        let oldest = users[0];
 
+        for (let i = 0; i < users.length; i++) {
+          if (oldest.age < users[i].age){
+          oldest = users[i]
+          }
+        console.log(oldest);
+        }
+        
+        let oldestSame = [];
 
+        for (let i = 0; i < users.length; i++) {    
+          if (oldest.age == users[i].age) {
+          oldestSame.push(users[i]);
+          }
+        }
+          return oldestSame;
+          console.log(oldestSame); 
+      }     
+    
+  function buildList(){  
+      let listElement = document.getElementById("resultList")
+      listElement.innerHTML = '';
+        for (let i = 0; i < oldestSame.length; i++) {
+            let user = oldestSame[i]
+            let li = '<li>' + user.name + ', ' + user.age + '</li>'  
+            listElement.innerHTML += li;
+        }
+  }
 
   </script>
 
