@@ -5,11 +5,14 @@ let users =[
     { name: "QQQ",
       age: 45},
     ]
- 
-const express = require('express')
+    
+var express = require('express');
+var cors = require('cors');
+var app = express();
+app.use(cors());
+    
 var bodyParser = require('body-parser');
 
-const app = express()
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(bodyParser.json()); // for parsing application/x-www-form-urlencoded
 
@@ -31,3 +34,4 @@ app.get('/', (req, res) => {
 app.listen(port,() => {
   console.log(`Example app listening at http://localhost:${port}`)
     })
+    
