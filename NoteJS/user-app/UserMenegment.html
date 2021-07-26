@@ -1,0 +1,147 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>UserAddPost</title>
+
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+  <p>Add a new library user</p>
+  <p>Enter user name</p>
+  <input type="text" id="userName">
+  <p>Enter user age</p>
+  <input type="numbers" id="userAge"><br>
+  <p>Enter user street</p>
+  <input type="text" id="userStreet"><br>
+  <p>Enter user school</p>
+  <input type="text" id="userSchool"<br>
+  <p><input type="button" id="addUser" value="Add User"></p>
+  <p>List of all library users</p>
+  <ol id="allUsers"></ol>
+
+  <p>Delete library user</p>
+  <p>Enter user id</p>
+  <input type="numbers" id="idUser"><br>
+  <p><input type="button" id="UserDel" value="Delete User"></p>
+
+  <p><input type="button" id="oldestUser" value="Search oldest user"</p>
+  <p>List of oldest user</p>
+  <ol id="allOldestUsers"></ol>
+  
+
+  <script>
+   // console.log("1");
+
+    getUsers();
+
+   // console.log("2");
+
+    let buttonDel = document.getElementById("UserDel")
+  //  console.log("3");
+
+    buttonDel.onclick =  DeleteUserClick;// в свойство онклик переменной баттондел
+//записанна функция, это значит что если когда нибудь ктото нажмет кнопку баттондел
+//то вызовется функция делитюзер клик
+  //  console.log("4");
+
+    function DeleteUserClick(){
+    //  console.log("555");
+
+      let textId = document.getElementById("idUser")
+      axios({// запись нового юзера принять юзера
+        method: 'post',
+        url: 'http://localhost:8080/delete-user',
+        data: { id: textId.value},
+        config: { headers: { 'Content-Type': 'multipart/form-data' } }
+      })
+        .then(function (response) {
+          console.log("POST deleted");// илья сказал убоать
+          
+          getUsers();
+        })
+        .catch(function (response) {
+          console.log(response);
+        });
+        
+        console.log("after POSTID");//илья сказал убрать
+        
+        textId.value = " ";
+      }
+      
+      let button = document.getElementById("addUser")
+    button.onclick = addUserClick;
+
+    function  fillList(users, listId) {
+      let listElement = document.getElementById(listId);
+      listElement.innerHTML = '';
+
+      for (let i = 0; i < users.length; i++) {
+        let user = users[i]
+        let li = "<li>" + "id:" + user.id + "&nbsp;&nbsp;&nbsp; "+ user.name + " " + user.age  + "</li>"
+        listElement.innerHTML += li;
+      }
+    }
+
+    function addUserClick() {
+      let textName = document.getElementById("userName");
+      let textAge = document.getElementById("userAge");
+
+      console.log("before POST");// Илья сказал удалить
+
+      axios({// запись нового юзера принять юзера
+        method: 'post',
+        url: 'http://localhost:8080/add-user',
+        data: { name: textName.value, age: textAge.value },
+        config: { headers: { 'Content-Type': 'multipart/form-data' } }
+      })
+        .then(function (response) {
+          console.log("POST received");// илья сказал убоать
+          
+          getUsers();
+        })
+        .catch(function (response) {
+          console.log(response);
+        });
+
+        console.log("after POST");//илья сказал убрать
+
+
+      textName.value = "";//очтщение полей после ввода юзера
+      textAge.value = "";
+    }
+
+    function getUsers() {// функция отдать список юзеровы
+      axios.get('http://localhost:8080/get-all-users')
+        .then(response => {
+          fillList(response.data, "allUsers");
+        })
+        .catch(error => {
+          console.log(error);
+        })
+    }
+    
+  let buttonOldest = document.getElementById("oldestUser")
+  buttonOldest.onclick = findOldestClick;
+  
+    
+  function findOldestClick() {
+
+    axios.get('http://localhost:8080/get-oldest-users')
+      .then(response => { 
+      fillList(response.data, "allOldestUsers");
+      })
+      .catch(error => {
+          console.log(error);
+      })
+        
+    
+  }
+
+
+
+
+
+  </script>
+</body>

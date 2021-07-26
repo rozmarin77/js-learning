@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>UserAddPost</title>
+
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+
+  <p><input type="button" id="addUser" value="Add User"></p>
+
+  <script>
+    var HUY = {
+      fn: null
+    };
+
+    console.log(HUY.fn);
+    HUY.fn = printHello;
+    console.log(HUY.fn);
+    
+    
+    HUY.fn();
+    
+    function printHello() {
+      console.log("Hello");
+    }
+  </script>
+</body>

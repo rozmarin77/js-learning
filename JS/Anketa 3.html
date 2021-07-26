@@ -48,7 +48,7 @@
             let textName = document.getElementById("nameInput")
             let textAge = document.getElementById("ageInput")
 
-            saveUser(textName.value, +textAge.value);
+            saveUser(textName.value, + textAge.value);
 
             textName.value = ''
             textAge.value = ''
@@ -94,7 +94,7 @@
                 console.log(oldest);
             }
 
-            let oldestSame = [];
+           let oldestSame = [];
 
             for (let i = 0; i < users.length; i++) {
                 if (oldest.age == users[i].age) {
