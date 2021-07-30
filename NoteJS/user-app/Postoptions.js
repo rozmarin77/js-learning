@@ -1,8 +1,9 @@
-var express = require('express');// все библиОтеки распологаются наверху!!!
-var cors = require('cors');
-var bodyParser = require('body-parser');//в пост запросе свойство
-var fs = require('fs')// чтобы наши юзеры сохранялись на диске с например
-var db = require('./db.js');
+const express     = require('express');// все библиОтеки распологаются наверху!!!
+const cors        = require('cors');
+const bodyParser  = require('body-parser');//в пост запросе свойство
+const fs          = require('fs')// чтобы наши юзеры сохранялись на диске с например
+const db          = require('./db.js');
+const promisify   = require('util.promisify');
 
 var data = fs.readFileSync("users-app.data", 'utf8');
 let users = JSON.parse(data);// перевод записи юзера из одного формата в другой
@@ -15,13 +16,25 @@ app.use(bodyParser.json()); // for parsing application/x-www-form-urlencoded
 
 const port = 8080
 
-var connection = db.createConnection();
-//connection.end();
+const connection = db.createConnection();
+const query = promisify(connection.query).bind(connection)
+
+app.get('/test-add-users', async (req, res) => {
+
+  var schoolResult = await query("INSERT INTO school (school) VALUES ('scool 12')")
+    console.log(`created school with id: ${schoolResult.insertId}`)
+    res.send(schoolResult)
+    
+});
+
 
 app.get('/get-all-users', (req, res) => {//гет запрос к базе данных моей 
 
-  connection.query("SELECT name, street FROM user join address on user.address_id = address.id",
-    function (err, results) {
+  connection.query("SELECT user.name, user.age, user.id, address.street, school.school " +
+                   "FROM user JOIN address ON user.address_id = address.id JOIN school " +
+                   "ON user.school_id = school.id",
+    
+  function (err, results) {
       console.log(err);
       console.log(results); // собственно данные
 

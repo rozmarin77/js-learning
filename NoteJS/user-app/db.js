@@ -4,7 +4,6 @@ module.exports = {
 
 const mysql = require('mysql');//установка библиотеки sql
 
-
 function createConnection() {
     const connection = mysql.createConnection({//подключение базы данных эскюэль
       host: 'localhost',
@@ -23,5 +22,5 @@ function createConnection() {
       }
     });
   
-    return connection;
+      return connection;
   }

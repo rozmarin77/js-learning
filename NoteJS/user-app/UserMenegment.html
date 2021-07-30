@@ -79,7 +79,7 @@
 
       for (let i = 0; i < users.length; i++) {
         let user = users[i]
-        let li = "<li>" + "id:" + user.id + "&nbsp;&nbsp;&nbsp; "+ user.name + " " + user.age  + "</li>"
+        let li = "<li>" + "id:" + user.id + "&nbsp;&nbsp;&nbsp; "+ user.name + " " + user.age  + " " + user.school +" " + user.street +"</li>"
         listElement.innerHTML += li;
       }
     }
@@ -115,7 +115,9 @@
     function getUsers() {// функция отдать список юзеровы
       axios.get('http://localhost:8080/get-all-users')
         .then(response => {
-          fillList(response.data, "allUsers");
+          fillList(response.data,"allUsers");
+          console.log(response.data);
+
         })
         .catch(error => {
           console.log(error);
