@@ -20,14 +20,78 @@ const connection = db.createConnection();
 const query = promisify(connection.query).bind(connection)
 
 app.get('/test-add-users', async (req, res) => {
+  
+  let schoolName = req.query.school;
+  let schoolId;
+  let querySelectSchool = "SELECT id from school WHERE school = " + "'" + schoolName + "'"
+  console.log(querySelectSchool)
+  console.log('request query', req.query.school)
+  let existingSchools = await query(querySelectSchool)
+  
+  if (existingSchools.length == 0) {
+      console.log('array is empty')
 
-  var schoolResult = await query("INSERT INTO school (school) VALUES ('scool 12')")
-    console.log(`created school with id: ${schoolResult.insertId}`)
-    res.send(schoolResult)
+    let queryInsertSchool = "INSERT INTO school (school) VALUES " + "('" + schoolName + "')"
+      console.log(queryInsertSchool)
+    let schoolResult = await query(queryInsertSchool)
+      console.log(schoolResult)
+    schoolId = schoolResult.insertId
+      console.log(`created school with id: ${schoolResult.insertId}`)
     
+  } 
+    else {
+      schoolId = existingSchools[0].id;
+        console.log(`select id`, schoolId)
+    }
+
+  let streetName = req.query.street;
+  let streetId;
+  let querySelectStreet = "SELECT id from address WHERE street = " + "'" + streetName + "'" 
+    console.log(querySelectStreet) 
+    console.log('request query', req.query.street)
+  let existingAddress = await query(querySelectStreet)
+                  
+  if (existingAddress.length == 0) {
+    console.log('array is empty')
+
+  let queryInsertStreet = "INSERT INTO address (street) VALUES " + "('" + streetName + "')"
+    console.log(queryInsertStreet)
+  let streetResult = await query(queryInsertStreet)
+    console.log(streetResult)
+  streetlId = streetResult.insertId
+    console.log(`created street with id: ${streetResult.insertId}`)
+  
+} 
+  else {
+    streetId = existingAddress[0].id
+      console.log(`select id`, streetId)
+  } 
+  
+  res.send(([schoolId, streetId]).toString());// ошибка и + как делать объекты
+  // перенести все качается улица после if ? else?
+
+
+
+let userName = req.query.name;
+console.log(req.query)
+console.log('request query', req.query.name)
+let userAge = req.query.age;
+let queryInsertUser = "INSERT INTO user (name, age, address_id, school_id)" +
+              "VALUES" + "(('" + userName +"')" +  "("userAge")" +"," + "("streetId")" +","+ "("schoolId"))"
+console.log(' query', queryInsertUser)
+let userRezult = await query(queryInsertUser);
+console.log(userRezult);
+
+//res.send((userRezult).toString())
+let queryInsertUser = "INSERT INTO user (name, age, address_id, school_id)" +
+              "VALUES" + "(('" + userName + "'"+  +  userAge + "," +  streetId + "," + schoolId)"    
+console.log(' query', queryInsertUser)
 });
 
 
+  
+  
+  
 app.get('/get-all-users', (req, res) => {//гет запрос к базе данных моей 
 
   connection.query("SELECT user.name, user.age, user.id, address.street, school.school " +
@@ -44,14 +108,14 @@ app.get('/get-all-users', (req, res) => {//гет запрос к базе да�
     });
   });
 
-console.log("checking if file exists");
-if (fs.existsSync("users-app.data") == false) {//если  этот файл сам не создает файл на диске, то
-  console.log("creating file...");           //то мы создаем его вручную
-  fs.writeFileSync("users-app.data", "");
-} else {
-  console.log("file already exists");
-}
-console.log('users-app-data open');
+//console.log("checking if file exists");
+//if (fs.existsSync("users-app.data") == false) {//если  этот файл сам не создает файл на диске, то
+  //console.log("creating file...");           //то мы создаем его вручную
+  //fs.writeFileSync("users-app.data", "");
+//} else {
+  //console.log("file already exists");
+//}
+//console.log('users-app-data open');
 
 
 
@@ -136,3 +200,4 @@ app.get('/get-youngest-users', (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
+
