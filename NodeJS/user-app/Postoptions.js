@@ -77,16 +77,13 @@ console.log(req.query)
 console.log('request query', req.query.name)
 let userAge = req.query.age;
 let queryInsertUser = "INSERT INTO user (name, age, address_id, school_id)" +
-              "VALUES" + "(('" + userName +"')" +  "("userAge")" +"," + "("streetId")" +","+ "("schoolId"))"
+              "VALUES" + "(('" + userName +"'" +  userAge + "," + streetId + "," + schoolId +"'))"
 console.log(' query', queryInsertUser)
 let userRezult = await query(queryInsertUser);
 console.log(userRezult);
 
 //res.send((userRezult).toString())
-let queryInsertUser = "INSERT INTO user (name, age, address_id, school_id)" +
-              "VALUES" + "(('" + userName + "'"+  +  userAge + "," +  streetId + "," + schoolId)"    
-console.log(' query', queryInsertUser)
-});
+
 
 
   
