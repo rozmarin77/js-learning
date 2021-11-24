@@ -18,5 +18,5 @@ function remainder (numbers){
     console.log('remainder 0 = ', remainder0,'remainder 1 = ', remainder1,'remainder 2 = ', remainder2, )
 }
 
-let array = [7,10,13,16];
+let array = [7,10,13,16, 9];
 remainder(array);

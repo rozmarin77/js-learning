@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<script>
-
 let f = func;
 
 function func() {
    console.log('func')
 }
-
 
 f();
 //'use strict';
@@ -30,11 +26,11 @@ if (number ==0){
 var someArray = [{id: 1}, {id: 2}, {id: 3}]
 console.log(someArray)
   idToDelete = 1
-someArray.forEach(function(el, i) {
-  if (el.id == idToDelete) someArray.splice(i, 1)
+someArray.forEach(function(item, i) {
+  if (item.id == idToDelete) someArray.splice(i, 1)
 })
 console.log(someArray)
 // [{id: 1}, {id: 3}]  
-</script>
+
 
   

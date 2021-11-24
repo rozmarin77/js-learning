@@ -14,7 +14,7 @@ function searchNumberLetters(text){
     return textList;
 } 
 
-let result = searchNumberLetters('anna');
+let result = searchNumberLetters('rozmarin');
 
 console.log(result);
 

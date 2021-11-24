@@ -1,6 +1,6 @@
 function amountOfElements (numbers){
     let counterEven = 0;
-    let counterOdd = 0;
+    let counterOdd = 0;                                 
     for (let i = 0; i < numbers.length; i++) {
         if (numbers[i] % 2 == 0) {
             counterEven++;
@@ -30,16 +30,4 @@ function amountOfElements (numbers){
    // amountOfElements('array1',array7);
     
     
-    /*let array = [1,5,6,8,9];
-    let counterEven = 0;
-    let counterOdd = 0;
-    for (let i = 0; i < array.length; i++) {
-        if (array[i] % 2 == 0) {
-            counterEven ++;
-        } 
-        if (array[i] % 2) {
-            counterOdd ++;
-        }
-    }
-
-    console.log('counterEven = ', counterEven, 'counterOdd =', counterOdd)*/
+    

@@ -3,10 +3,12 @@ max = getMaxCount(arr);
 function getMaxCount(array){
     let max = arr[0];
     for (i = 0; i < array.length; i++){
-        if (max < array[i]) max = arr[i];
+        if (max < array[i]){
+            max = arr[i];
+        }
 
     }
-   // return max;
+    return max;
 
 }
 console.log(max);
