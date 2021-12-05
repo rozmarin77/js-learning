@@ -1,9 +1,4 @@
-<!doctype html>
-<!-- 
-<script src="alert.js"></script> -->
 
-
-<script>
 
 /*let numbers = [2,4,5,6,8,3];
 let value = getMulti (numbers);

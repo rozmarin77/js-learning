@@ -21,14 +21,18 @@ let d = {
 d['id'] = 7;
 d['id_3'] = 7;
 d['id_4'] = 4;
-console.log(d[name])
+console.log('d5=', d[5])
+
+
+console.log('d=', d); // gives true
+
 
 for(var p in d){
     // if(p == 'name')
     //     console.log(p, '=>', d[p])
     // else
     //     console.log(p, '=', d[p])
-    console.log(p, typeof(d[p]), '=', d[p]);
+    console.log('p=', p, typeof(d[p]), '=', d[p]);
     
 
     if(typeof d[p] == 'function') {
@@ -38,7 +42,7 @@ for(var p in d){
 
 
 let prop = 'id'
-console.log(prop, '=', d[prop])
+console.log('prop=', prop, '=', d[prop])
 
 let massageId = 'func';
  d[massageId]();
@@ -47,19 +51,5 @@ let massageId = 'func';
 
 
 
-
-
-/*let schoolName = 'gggg'
-
-console.log("SELECT id from school WHERE school = " + "'" +  schoolName + "'")
-
-console.log('SELECT id from school\' WHERE school = ' + '\'' +  schoolName + '\'')
-
-console.log(`asd=${schoolName}`)
-
-//string interpolation
-console.log(`SELECT id from school WHERE school = '${schoolName}'`)
-
-console.log('\\\'')*/
 
 

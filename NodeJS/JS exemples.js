@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<script>
-'use strict';
+
 /*let browser = prompt(" What browser you would like to use?",'').toLowerCase();
 if (browser=="edge") {
     alert ( "You've got the Edge!" );

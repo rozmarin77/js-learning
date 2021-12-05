@@ -3,7 +3,7 @@ function getAllIndices(arr) {//вывод индексов всех элемен
 
   for (let i = 0; i < arr.length; i++) {
   //you simply need to output i.
-      //console.log(i + ' ' + 'index' + '-' + arr[i]);
+      console.log(i + ' ' + 'index' + '-' + arr[i]);
   }
 }
 
