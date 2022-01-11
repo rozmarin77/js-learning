@@ -1,4 +1,4 @@
-   /* var arraySign = function(nums) {//поиск количества отрицательных чисел, длинное решение
+    var arraySign = function(nums) {//поиск количества отрицательных чисел, длинное решение
         let resultOdd = 0;
         for (let i = 0; i < nums.length; i++){
             if (nums[i] < 0){
@@ -33,12 +33,12 @@
             }
             console.log('current num', i, nums[i])// это для того чтоб посмотреть как идет цикл
         }
-        console.log('res', res);//чтоб увидеть счто попадает в res
+        console.log('res', res);//чтоб увидеть что попадает в res
        
         return res;
     };
     arr1 = [1,2, -1, -8, 0, -5];
-    console.log('total second ver', arraySign2(arr1));*/
+    console.log('total second ver', arraySign2(arr1));
     
     
     

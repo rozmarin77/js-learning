@@ -4,9 +4,7 @@ function varFunc() {
 let varFunc2 = () => {
     console.log('text4')
 }
-let x = {
-
-}
+let x = {}
 
 let d = {
     name: 'Anna',
@@ -24,7 +22,8 @@ d['id_4'] = 4;
 console.log('d5=', d[5])
 
 
-console.log('d=', d); // gives true
+
+console.log('arr d=', d); // gives true
 
 
 for(var p in d){
@@ -51,5 +50,25 @@ let massageId = 'func';
 
 
 
+
+
+
+
+
+a = {
+    1: "Ivan",
+    2 : "Sagita"
+}
+console.log('a1', a[1]);
+a[3] = 'Anna';
+console.log('a', a[666-663]);
+console.log('a2', a[8]);
+
+    if([]){
+        console.log('true');
+    } else {
+        console.log('if=','false');
+        
+    }
 
 
