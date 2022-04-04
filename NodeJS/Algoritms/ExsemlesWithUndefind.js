@@ -6,8 +6,7 @@ function searchValue(x){
         console.log('x = ', x, 'false')
     }    
 }
-searchValue(888);
-
+searchValue();
 
 
 

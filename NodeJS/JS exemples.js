@@ -88,12 +88,6 @@ if (b < 1) {
  alert (result);
 //=============================== */
 
-let numbers = [5,4,8,3,9,6,7];// не работает - исправить!!!!!
-function min (numbers) {
-for (let i = 0; i < numbers.length; i++){
-  console.log(numbers[i])
-  }
-}
 
 
 

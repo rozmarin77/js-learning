@@ -30,7 +30,7 @@ someArray.forEach(function(item, i) {
   if (item.id == idToDelete) someArray.splice(i, 1)
 })
 console.log(someArray)
-// [{id: 1}, {id: 3}]  
+// [{id: 2}, {id: 3}]  результат
 
 
   

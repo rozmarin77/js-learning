@@ -32,7 +32,7 @@ console.log('result arr', result);
         }
     
     };
-    let array2 = [1,5,-5]
+    let array2 = [1,5,5]
     console.log('arraySign', array2, '=', arraySign(array2));
 
   
