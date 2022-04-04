@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Company</title>
+ </head>
+ <body>
+     <p><b>list of departments</b>
+         <input type="button" id="showDepartment" value="Show department">
+        <ol id="departments-list">
+            <li></li>
+        </ol>
+    <p>Enter department<br><br> 
+    <input type="text" id="departmentInput">
+    <input type="button" id="addDepartment" value="Add department"><br></br>
+
+    <script>
+
+        window.onload = init;
+        function Department(title){
+            this.title = title;
+        };
+
+        let Departments = [
+            new Department('Marketing'),
+            new Department('Technical'),
+            new Department('Advertising')
+        ]
+        function init(){
+            let button = document.getElementById("addDepartment")
+            button.onclick = addDepartmentClick;
+        }
+        function addDepartmentClick(){
+            let textTitle = document.getElementByI("ddepartmentInput")
+            saveDepartment(textTitle)
+            textTitle.value = " "
+            fillList(Departments, "showDepartment");
+        }
+        function saveDepartment(textTitle){
+            let department = {
+                title: titleValue
+            }
+            Departments.push(department);
+        }
+        function fillList(department, listId) {
+
+            let listElement = document.getElementById(listId)
+            listElement.innerHTML = " ";
+
+            for (let i = 0; i < Departments.length; i++) {
+                let department = Departments[i]
+                let li = '<li>' + department.title  + '</li>'
+                listElement.innerHTML += li;
+            }
+        }
+    </script>
+    
+ </body>
+
+</html>
