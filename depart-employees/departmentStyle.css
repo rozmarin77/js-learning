@@ -1,0 +1,18 @@
+body {
+    margin: 10px;
+    background-color: snow;
+    display: flex;
+    flex-direction: column;
+    height: 900px;
+    font-family:  Georgia, 'Times New Roman', Times, serif;
+    }
+    
+    .employees-list {
+        border-style: solid;
+        flex: flex;
+        flex-direction: column;
+
+        padding-left: 100px; 
+        height: auto;
+    } 
+    

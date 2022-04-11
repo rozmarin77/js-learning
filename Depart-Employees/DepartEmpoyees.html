@@ -2,56 +2,181 @@
 <html>
 <head>
     <title>Company</title>
+   <!-- <link rel="stylesheet" href="departmentStyle.css">-->
+
  </head>
  <body>
      <p><b>list of departments</b>
-         <input type="button" id="showDepartment" value="Show department">
-        <ol id="departments-list">
-            <li></li>
-        </ol>
-    <p>Enter department<br><br> 
-    <input type="text" id="departmentInput">
-    <input type="button" id="addDepartment" value="Add department"><br></br>
+         <input type="button" id="showDepartment" value="Show departments">
+         <input type="button" id="clearDepartment" value="Clear departments">
+         <ol id="departments-list"></ol>
+         <p>Enter department<br>
+         <input type="text" id="departmentInput">
+         <input type="button" id="addDepartment" value="Add department"><br></br>
+
+         <p><b>list of employees</b>
+         <input type="button" id="shoEmployee" value="Show employees">
+         <input type="button" id="clearEmployee" value="Clear employees">
+
+         <!--<div class="employees-list"-->   
+         <table id="employees-list" style="border-style: solid">
+            <thead>
+                <th>id</th>
+                <th>name</th>
+                <th>position</th>
+            </thead>
+
+            <tbody>
+
+                <tr data-employee-id="1">
+
+                    <td>1</td>
+                    <td>Ron</td>
+                    <td>
+                        <select onchange="positionChanged(event)">
+                            <option value="worker">Worker</option>
+                            <option value="manager">Manager</option>                            
+                        </select>
+                    </td>
+                </tr>
+                <tr data-employee-id="2">
+                    <td>2</td>
+                    <td>Petya</td>
+                    <td>
+                        <select onchange="positionChanged(event)">
+                            <option value="worker">Worker</option>
+                            <option value="manager">Manager</option>                            
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+         <p>Enter employee<br>
+         <input type="text" id="employeeInput">
+         <input type="button" id="addEmployee" value="Add employee"><br></br>
 
     <script>
 
         window.onload = init;
+        
         function Department(title){
             this.title = title;
         };
 
-        let Departments = [
+        let departments = [
             new Department('Marketing'),
             new Department('Technical'),
             new Department('Advertising')
         ]
+        console.log(departments);
+        
         function init(){
-            let button = document.getElementById("addDepartment")
-            button.onclick = addDepartmentClick;
+            let button = document.getElementById("showDepartment")
+            button.onclick = showDepartmentClick;
+
+            let buttonAdd = document.getElementById("addDepartment")
+            buttonAdd.onclick = addDepartmentClick;
+
+            let buttonClear = document.getElementById("clearDepartment")
+            buttonClear.onclick = clearDepartmentClick;
+        };
+
+        let positions = {
+            manager: 'manager',
+            worker: 'worker'
+        };
+
+        function Employee(id, name, position) {
+            this.id = id;
+            this.name = name;
+            this.position = position;
+
         }
+
+        let lastEmployeeId = 2;
+        let employees = [
+            new Employee(1, 'Rone', positions.worker),
+            new Employee(2, 'Vasya', positions.manager),
+        ];
+        function positionChanged(e) {
+            let select = e.target;
+            console.log(select.value);
+           // select.value = emp.position посмотреть как работать будет
+            console.log(select.closest('tr').dataset.employeeId);
+        }
+
+        function showDepartmentClick(){
+            refreshDepartments();
+        };
+
         function addDepartmentClick(){
-            let textTitle = document.getElementByI("ddepartmentInput")
-            saveDepartment(textTitle)
+            let textTitle = document.getElementById("departmentInput")
+            
+            saveDepartment(textTitle.value)
             textTitle.value = " "
-            fillList(Departments, "showDepartment");
+            refreshDepartments();
+        };
+
+        function refreshDepartments(){
+            fillListDepartments("departments-list");
         }
-        function saveDepartment(textTitle){
+
+        function saveDepartment(titleValue){
             let department = {
                 title: titleValue
-            }
-            Departments.push(department);
-        }
-        function fillList(department, listId) {
+            };
+            departments.push(department);
+            console.log(departments);
+        };
+
+        function fillListDepartments(listId) {
 
             let listElement = document.getElementById(listId)
             listElement.innerHTML = " ";
 
-            for (let i = 0; i < Departments.length; i++) {
-                let department = Departments[i]
+            for (let i = 0; i < departments.length; i++) {
+                let department = departments[i]
                 let li = '<li>' + department.title  + '</li>'
                 listElement.innerHTML += li;
             }
-        }
+        };
+        function fillListEmployees(listId) {
+
+            let listElement = document.getElementById(listId)
+            listElement.innerHTML = " ";
+
+            for (let i = 0; i < employees.length; i++) {
+                let employee = employees[i]
+                let li = '<li>' + department.title  + '</li>'
+                listElement.innerHTML += li;
+            }
+        };
+
+        function clearDepartmentClick(){
+            let listElement = document.getElementById("departments-list")
+            listElement.innerHTML = "";
+        };
+    
+        example_array = [["Name","Age"],["Antonio","35"]];
+
+function array_to_table(my_array){
+  my_table_html = '<table>';
+  for(var i = 0; i<my_array.length; i++){
+    my_table_html += "<tr>";
+    for(var j = 0; j < my_array[i].length; j++){
+      my_table_html += "<td>"+my_array[i][j]+"</td>";
+    }
+    my_table_html += "</tr>";
+  }
+  my_table_html += '</table>';
+  document.getElementById("mytable").innerHTML = my_table_html;
+}
+
+array_to_table(example_array);
+<div id="mytable"></div>
+    
+    
     </script>
     
  </body>
