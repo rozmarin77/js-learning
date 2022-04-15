@@ -15,46 +15,30 @@
          <input type="button" id="addDepartment" value="Add department"><br></br>
 
          <p><b>list of employees</b>
-         <input type="button" id="shoEmployee" value="Show employees">
+         <input type="button" id="showEmployee" value="Show employees" onclick="refreshEmployees()">
          <input type="button" id="clearEmployee" value="Clear employees">
 
-         <!--<div class="employees-list"-->   
+          
+         
          <table id="employees-list" style="border-style: solid">
-            <thead>
-                <th>id</th>
-                <th>name</th>
-                <th>position</th>
+           <thead style="border-style: solid">
+                <th>Id</th> 
+                <th>Name</th>
+                <th>Position</th>
             </thead>
-
-            <tbody>
-
-                <tr data-employee-id="1">
-
-                    <td>1</td>
-                    <td>Ron</td>
-                    <td>
-                        <select onchange="positionChanged(event)">
-                            <option value="worker">Worker</option>
-                            <option value="manager">Manager</option>                            
-                        </select>
-                    </td>
-                </tr>
-                <tr data-employee-id="2">
-                    <td>2</td>
-                    <td>Petya</td>
-                    <td>
-                        <select onchange="positionChanged(event)">
-                            <option value="worker">Worker</option>
-                            <option value="manager">Manager</option>                            
-                        </select>
-                    </td>
-                </tr>
+            <tbody id="conteiner-employees">
+                  <!--<tr id="tr"></tr>-->
             </tbody>
-        </table>
+
 
          <p>Enter employee<br>
          <input type="text" id="employeeInput">
-         <input type="button" id="addEmployee" value="Add employee"><br></br>
+         <select type="text" onchange="positionChanged(event)" id="position">
+            <option value="worker">Worker</option>
+            <option value="manager">Manager</option>                            
+        </select>
+         <input type="button" id="addEmployee" value="Add employee" onclick="addEmployeeClick()">
+         <br></br>
 
     <script>
 
@@ -95,16 +79,109 @@
         }
 
         let lastEmployeeId = 2;
+
         let employees = [
             new Employee(1, 'Rone', positions.worker),
             new Employee(2, 'Vasya', positions.manager),
         ];
+        console.log(employees)
         function positionChanged(e) {
             let select = e.target;
             console.log(select.value);
-           // select.value = emp.position посмотреть как работать будет
-            console.log(select.closest('tr').dataset.employeeId);
+           // select.value = positions.value //посмотреть как работать будет
+            //console.log(select.closest('tr').dataset.employeeId);
         }
+        /*function fillListEmployees(){
+           let table = document.createElement("table");
+            table.setAttribute('border', '1');
+            table.setAttribute('width','500');
+            table.setAttribute('height', '150');
+
+            let tbody = document.createElement('tbody');
+            let tr = document.createElement('tr');//создаем tr-ку
+                tr.innerHTML = '<td>Id</td><td>Name</td><td>Position</td>';
+                tbody.appendChild(tr);
+
+            let items = ['id','name','position'];
+            for(let i = 0; i < employees.length; i++){
+                let tr = document.createElement('tr');//создаем tr-ку
+                     for (let j = 0; j < 3; j++) {//заполняем tr-ку td-шками 
+                         let td = document.createElement('td');
+                         let item = employees[i][items[j]];
+                         td.innerHTML = item;// пишем в нее текст
+                         tr.appendChild(td);// добавляем созданную td-шку в конец tr-ки 
+                     }
+                      tbody.appendChild(tr);// добавляем созданную tr-ку в конец таблицы 
+            }
+            
+            table.appendChild(tbody);
+            document.getElementById("conteiner-employees").appendChild(table);
+            
+        };*/
+        function refreshEmployees(){
+            fillListEmployees("conteiner-employees")
+        }    
+        function fillListEmployees(listId){
+            let table = document.createElement("table");
+            let tbody = document.createElement("tbody");
+            let tr = document.createElement('tr');//создаем tr-ку
+            //tbody.appendChild(tr);
+
+                //tr.innerHTML = '<td>Id</td><td>Name</td><td>Position</td>';
+                //tbody.appendChild(tr);
+
+            //let items = ['id','name','position'];
+            for (let i = 0; i < employees.length; i++) {
+                let td = document.createElement('td');
+                //let tr = document.createElement('tr');
+                let employee = employees[i]
+                td.innerHTML = employee;
+                //let tr = '<tr>' + employee.title  + '</tr>'
+                tr.appendChild(td);
+               // tr.innerHTML += tr;
+               
+            }
+            tbody.appendChild(tr);
+          //  table.appendChild(tbody);
+            document.getElementById("conteiner-employees").appendChild(tr);
+        };
+        /*function fillListEmployees(listId) {
+            let listElement = document.getElementById(listId)
+            listElement.innerHTML = " ";
+
+            for (let i = 0; i < employees.length; i++) {
+                let employee = employees[i]
+                let tr = '<tr>' + employee.title  + '</tr>'
+                listElement.innerHTML += tr;
+            }
+        };*/
+        
+
+        function addEmployeeClick(){
+            let textTitle = document.getElementById("employeeInput")
+            
+            saveEmployees(textTitle.value)
+            textTitle.value = " ";
+            
+            fillListEmployees("employees-list");
+        };
+
+        function saveEmployees(nameValue){
+            let idEmp = ++lastEmployeeId ;
+            let mySelectOption = getValue();
+           
+            let employee = {
+                id: idEmp, 
+                name: nameValue,
+                position: mySelectOption
+                }
+                function getValue(){
+                    let selectedValue = position.value;
+                    return selectedValue;
+                }
+                employees.push(employee);
+                console.log(employees);
+        };
 
         function showDepartmentClick(){
             refreshDepartments();
@@ -141,42 +218,14 @@
                 listElement.innerHTML += li;
             }
         };
-        function fillListEmployees(listId) {
-
-            let listElement = document.getElementById(listId)
-            listElement.innerHTML = " ";
-
-            for (let i = 0; i < employees.length; i++) {
-                let employee = employees[i]
-                let li = '<li>' + department.title  + '</li>'
-                listElement.innerHTML += li;
-            }
-        };
+       
 
         function clearDepartmentClick(){
             let listElement = document.getElementById("departments-list")
             listElement.innerHTML = "";
         };
     
-        example_array = [["Name","Age"],["Antonio","35"]];
-
-function array_to_table(my_array){
-  my_table_html = '<table>';
-  for(var i = 0; i<my_array.length; i++){
-    my_table_html += "<tr>";
-    for(var j = 0; j < my_array[i].length; j++){
-      my_table_html += "<td>"+my_array[i][j]+"</td>";
-    }
-    my_table_html += "</tr>";
-  }
-  my_table_html += '</table>';
-  document.getElementById("mytable").innerHTML = my_table_html;
-}
-
-array_to_table(example_array);
-<div id="mytable"></div>
-    
-    
+        
     </script>
     
  </body>

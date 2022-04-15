@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+
+  <title>Untitled</title>
+
+  <meta charset="utf-8">
+
+</head>
+
+ <body>
+
+<div id="table-lizing-traktor"></div>
+
+<script>
+
+let goods = [
+                {
+                    name: 'МТЗ',
+
+
+                    model:'82.1',
+
+                    country:'Беларусь',
+
+                    price: '1.11',
+
+                },
+
+                {
+
+                    name:'МТЗ',
+
+                    model: '892',
+
+                    country: 'Білорусь',
+
+                    price: '1.21',
+
+                },
+]
+
+        let countGoods = goods.length;
+        let table = document.createElement('table');
+        table.setAttribute('border', '1');
+        table.setAttribute('width','500');
+        table.setAttribute('height', '150');
+
+        let tbody = document.createElement('tbody');
+        let tr = document.createElement('tr');
+            tr.innerHTML = '<td>Марка техники</td><td>Модель техники</td><td>Страна производитель</td><td>Цена</td>';
+            tbody.appendChild(tr);
+
+        let items = ['name','model','country','price'];
+        for(let i = 0; i < countGoods; i++){
+            let tr = document.createElement('tr');
+                for (let j = 0; j < 4; j++) {
+                    let td = document.createElement('td');
+                    let item = goods[i][items[j]];
+                    td.innerHTML = item;
+                  //  td.innerHTML = item[country] ? item[country] : item;
+                    tr.appendChild(td);
+                }
+                tbody.appendChild(tr);
+        }
+        table.appendChild(tbody);
+        document.getElementById('table-lizing-traktor').appendChild(table);
+
+ 
+</script>
+
+</body>
+
+ 
+
+</html>

@@ -1,4 +1,4 @@
-/*let person1 = {
+/*let person1 = { примеры с прототипами объектов почитать и заполмнить
     name: 'Victor',
     dateOfBirth: new Date(2000, 08, 02),
     getInfo: function getInfo(){

@@ -125,6 +125,10 @@
             departments.push(department);
             console.log(departments);
         };
+document.body.id = "unique_id";
+document.getElemetsByTagName('body')[0].id = "unique_id";
+document.querySelector('body').id = "unique_id";
+
 
         function fillListDepartments(listId) {
 
@@ -141,9 +145,64 @@
         function clearDepartmentClick(){
             let listElement = document.getElementById("departments-list")
             listElement.innerHTML = "";
-        };
+        };// оно
+        ssfunction fillListEmployees(){
+    let table = document.createElement("table");
+     table.setAttribute('border', '1');
+     table.setAttribute('width','500');
+     table.setAttribute('height', '150');
+
+     let tbody = document.createElement('tbody');
+     let tr = document.createElement('tr');//создаем tr-ку
+         tr.innerHTML = '<td>Id</td><td>Name</td><td>Position</td>';
+         tbody.appendChild(tr);
+
+     let items = ['id','name','position'];
+     for(let i = 0; i < employees.length; i++){
+         let tr = document.createElement('tr');//создаем tr-ку
+              for (let j = 0; j < 3; j++) {//заполняем tr-ку td-шками 
+                  let td = document.createElement('td');
+                  let item = employees[i][items[j]];
+                  td.innerHTML = item;// пишем в нее текст
+                  tr.appendChild(td);// добавляем созданную td-шку в конец tr-ки 
+              }
+               tbody.appendChild(tr);// добавляем созданную tr-ку в конец таблицы 
+     }
+     
+     table.appendChild(tbody);
+     document.getElementById("employees-list").appendChild(table);
+     
+ };*/
     </script>
     
  </body>
 
 </html>
+// оно
+<thead>
+    <th>Id</th>
+    <th>Name</th>
+    <th>Position</th>
+</thead>--> 
+function fillListEmployees(listId){
+    // let table = document.getElementById(listId) 
+     let table = document.createElement("table");
+     table.setAttribute('border', '1');
+     table.setAttribute('width','500');
+     table.setAttribute('height', '150');
+
+     let tbody = document.createElement('tbody');
+     let tr = document.createElement('tr');//создаем tr-ку
+         tr.innerHTML = '<td>Id</td><td>Name</td><td>Position</td>';
+         tbody.appendChild(tr);
+
+     let items = ['id','name','position'];
+     for (let i = 0; i < employees.length; i++) {
+     let employee = employees[i]
+         let tr = '<tr>' + employee.title  + '</tr>'
+         tr.innerHTML += tr;
+     }
+     document.getElementById("employees-list").appendChild(tr);
+ };
+ 
+ 

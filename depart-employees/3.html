@@ -1,0 +1,15 @@
+<table id="table"></table>
+<script>
+
+let parent = document.querySelector('#parent');
+for (let i = 1; i <= 5; i++) {
+	let tr = document.createElement('tr'); // создаем tr-ку
+	// Заполняем tr-ку td-шками:
+	for (let j = 1; j <= 3; j++) {
+		let td = document.createElement('td'); // создаем td-шку
+		td.innerHTML = j; // пишем в нее текст
+		tr.appendChild(td); // добавляем созданную td-шку в конец tr-ки 
+	}
+	table.appendChild(tr); // добавляем созданную tr-ку в конец таблицы 
+}
+</script>

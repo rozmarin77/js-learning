@@ -1,11 +1,11 @@
-<div class="set-form">
-    
-    <input type="button" id="more_fields" onclick="add_fields();" value="Add More" class="btn btn-info" />
-</div>
+
+    <div class="set-form"><!--пробный вариант как заполнить страницу таблицы из учебника-->
+      <link rel="stylesheet" href="func.css">
+      <input type="button" id="more_fields" onclick="add_fields();" value="Add More"/>
+    </div>
 <table id="myTable">
   <!-- TAKIT: Added p element here, it proper. What is it used for, by the way? -->
-  <p>product id : 
-      <input type="text" name="fname" id="1"></p>
+  <p>product id : <input type="text" name="fname" id="1"></p>
   <thead>
     <tr>
       <th>Product ID</th>
@@ -18,16 +18,18 @@
   <tbody>
     <!-- TAKIT: Added body and the "row-type" in it, so that HTML stays in HTML -->
     <tr id="row-type">
-      <td><textarea name="Product ID" placeholder="Product ID"></textarea></td>
+      <td><textarea name="Product " placeholder="Productuuuu "></textarea></td>
       <td><textarea name="Title" placeholder="Title"></textarea></td>
       <td><input name="startdate" type="date"></td>
       <td><input name="enddat" type="date"></td>
       <td>
-        <button onclick="put_in_table(this);">Submit</button> <button onclick="cancel_add(this);">Cancel</button>
+        <button onclick="put_in_table(this);">Submit</button>
+        <button onclick="cancel_add(this);">Cancel</button>
       </td>
     </tr>
   </tbody>
 </table>
+
 <script>
 function add_fields() {
     // TAKIT: Replaced .innerHTML as it not recommended
@@ -38,13 +40,28 @@ function add_fields() {
   
   // TAKIT: Added this function for when you click on the submit button
   function put_in_table(elm) {
-    var tds = elm.closest('tr').children; // Get all tds of the line you just clicked "submit"
+    let tds = elm.closest('tr').children; // Get all tds of the line you just clicked "submit"
     for (var i = 0; i < tds.length; i++) { // For all tds
       // replace the HTML with the text value of the textarea (that removes the textareas)
       if (tds[i].innerHTML)
         tds[i].innerText = tds[i].children[0].value || '';
     }
   }
+  function fillListDepartments(listId) {
+    let listElement = document.getElementById(listId)
+    listElement.innerHTML = " ";
+
+    for (let i = 0; i < departments.length; i++) {
+        let department = departments[i]
+        let li = '<li>' + department.title  + '</li>'
+          listElement.innerHTML += li;
+    }
+  };
+
+
+
+
+
   
   // TAKIT: Added this function to cancel the add
   function cancel_add(elm) {
