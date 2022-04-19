@@ -20,16 +20,14 @@
 
           
          
-         <table id="employees-list" style="border-style: solid">
-           <thead style="border-style: solid">
+         <table id="employees-list" style="border-style: solid" size="auto">
+           <thead>
                 <th>Id</th> 
                 <th>Name</th>
                 <th>Position</th>
             </thead>
-            <tbody id="conteiner-employees">
-                  <!--<tr id="tr"></tr>-->
-            </tbody>
-
+            <tbody id="conteiner-employees"></tbody>
+         </table>
 
          <p>Enter employee<br>
          <input type="text" id="employeeInput">
@@ -90,73 +88,8 @@
             console.log(select.value);
            // select.value = positions.value //посмотреть как работать будет
             //console.log(select.closest('tr').dataset.employeeId);
-        }
-        /*function fillListEmployees(){
-           let table = document.createElement("table");
-            table.setAttribute('border', '1');
-            table.setAttribute('width','500');
-            table.setAttribute('height', '150');
-
-            let tbody = document.createElement('tbody');
-            let tr = document.createElement('tr');//создаем tr-ку
-                tr.innerHTML = '<td>Id</td><td>Name</td><td>Position</td>';
-                tbody.appendChild(tr);
-
-            let items = ['id','name','position'];
-            for(let i = 0; i < employees.length; i++){
-                let tr = document.createElement('tr');//создаем tr-ку
-                     for (let j = 0; j < 3; j++) {//заполняем tr-ку td-шками 
-                         let td = document.createElement('td');
-                         let item = employees[i][items[j]];
-                         td.innerHTML = item;// пишем в нее текст
-                         tr.appendChild(td);// добавляем созданную td-шку в конец tr-ки 
-                     }
-                      tbody.appendChild(tr);// добавляем созданную tr-ку в конец таблицы 
-            }
-            
-            table.appendChild(tbody);
-            document.getElementById("conteiner-employees").appendChild(table);
-            
-        };*/
-        function refreshEmployees(){
-            fillListEmployees("conteiner-employees")
-        }    
-        function fillListEmployees(listId){
-            let table = document.createElement("table");
-            let tbody = document.createElement("tbody");
-            let tr = document.createElement('tr');//создаем tr-ку
-            //tbody.appendChild(tr);
-
-                //tr.innerHTML = '<td>Id</td><td>Name</td><td>Position</td>';
-                //tbody.appendChild(tr);
-
-            //let items = ['id','name','position'];
-            for (let i = 0; i < employees.length; i++) {
-                let td = document.createElement('td');
-                //let tr = document.createElement('tr');
-                let employee = employees[i]
-                td.innerHTML = employee;
-                //let tr = '<tr>' + employee.title  + '</tr>'
-                tr.appendChild(td);
-               // tr.innerHTML += tr;
-               
-            }
-            tbody.appendChild(tr);
-          //  table.appendChild(tbody);
-            document.getElementById("conteiner-employees").appendChild(tr);
         };
-        /*function fillListEmployees(listId) {
-            let listElement = document.getElementById(listId)
-            listElement.innerHTML = " ";
-
-            for (let i = 0; i < employees.length; i++) {
-                let employee = employees[i]
-                let tr = '<tr>' + employee.title  + '</tr>'
-                listElement.innerHTML += tr;
-            }
-        };*/
         
-
         function addEmployeeClick(){
             let textTitle = document.getElementById("employeeInput")
             
@@ -182,6 +115,21 @@
                 employees.push(employee);
                 console.log(employees);
         };
+
+        function fillListEmployees(listId){
+	 	    let listElement = document.getElementById(listId)
+            listElement.innerHTML = " ";
+		    for(let i = 0; i < employees.length; i++){
+			    let employee = employees[i];
+			    let str = '<td>' + employee.id + '</td>' + '<td>' + employee.name + '</td>' + '<td>' + employee.position + '</td>'  
+			    listElement.innerHTML += str; 
+		    }
+			
+	    };
+    
+        function refreshEmployees(){
+            fillListEmployees("conteiner-employees")
+        }    
 
         function showDepartmentClick(){
             refreshDepartments();

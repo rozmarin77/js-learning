@@ -1,15 +1,139 @@
-<table id="table"></table>
-<script>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ex</title>
+   
 
-let parent = document.querySelector('#parent');
-for (let i = 1; i <= 5; i++) {
-	let tr = document.createElement('tr'); // создаем tr-ку
-	// Заполняем tr-ку td-шками:
-	for (let j = 1; j <= 3; j++) {
-		let td = document.createElement('td'); // создаем td-шку
-		td.innerHTML = j; // пишем в нее текст
-		tr.appendChild(td); // добавляем созданную td-шку в конец tr-ки 
-	}
-	table.appendChild(tr); // добавляем созданную tr-ку в конец таблицы 
-}
+ </head>
+ <body>
+     <p><b>list of books</b>
+
+
+<table id="list" style="border-style: solid">
+	<thead>
+		<th >Name</th>
+		<th >Age</th>
+		<th >Country</th>
+	</thead>
+
+	<tbody id = "tbody"></tbody>
+		
+</table> 
+
+<script>
+	let books =[
+	    book1 = {
+			name: "Don",
+			age: 25,
+			country: 'US'
+		},
+		book2 = {
+			name: "QWERTY",
+			age: 27,
+			country: 'US'
+		},
+
+		book3 = {
+			name: "QWERTY",
+			age: 25,
+			country: 'US'
+		},
+		book4 = {
+			name: "ZXCV",
+			age: 28,
+			country: 'US'
+		},
+		book5 = {
+			name: "QWERTY",
+			age: 25,
+			country: 'US'
+		},
+		book6 = {
+			name: "ZXCV",
+			age: 28,
+			country: 'US'
+		},
+	];
+	console.log('books', books);
+
+	function fillListBooks(listId){
+	 	let listElement = document.getElementById(listId)
+        listElement.innerHTML = " ";
+		for(let i = 0; i < books.length; i++){
+			let book = books[i];
+			let str = '<td>' + book.name + '</td>' + '<td>' + book.age + '</td>' + '<td>' + book.country + '</td>'  
+			listElement.innerHTML += str; 
+		}
+			
+	};
+    fillListBooks('tbody');
+
+	
 </script>
+
+</body>
+
+</html>
+сделать новый файл с этой фкнкцией
+
+function fillListEmployees(){
+	let table = document.createElement("table");
+	 table.setAttribute('border', '1');
+	 table.setAttribute('width','500');
+	 table.setAttribute('height', '150');
+
+	 let tbody = document.createElement('tbody');
+	 let tr = document.createElement('tr');//создаем tr-ку
+		 tr.innerHTML = '<td>Id</td><td>Name</td><td>Position</td>';
+		 tbody.appendChild(tr);
+
+	 let items = ['id','name','position'];
+	 for(let i = 0; i < employees.length; i++){
+		 let tr = document.createElement('tr');//создаем tr-ку
+			  for (let j = 0; j < 3; j++) {//заполняем tr-ку td-шками 
+				  let td = document.createElement('td');
+				  let item = employees[i][items[j]];
+				  console.log("item", item)
+				  td.innerHTML = item;// пишем в нее текст
+				  tr.appendChild(td);// добавляем созданную td-шку в конец tr-ки 
+				  console.log("tr",tr.appendChild(td) )
+			  }
+			   tbody.appendChild(tr);// добавляем созданную tr-ку в конец таблицы 
+	 }//console.log("tbody",tbody.appendChild(tr) )
+	 
+	 table.appendChild(tbody);
+	 document.getElementById("conteiner-employees").appendChild(table);
+	 
+ };
+  еще одна хз
+
+ /*function fillListEmployees(listId){
+	let table = document.createElement("table");
+	let tbody = document.createElement("tbody");
+	let tr = document.createElement('tr');//создаем tr-ку
+	
+	//tbody.appendChild(tr);
+
+		//tr.innerHTML = '<td>Id</td><td>Name</td><td>Position</td>';
+		//tbody.appendChild(tr);
+
+	//let items = ['id','name','position'];
+	for (let i = 0; i < employees.length; i++) {
+		//let tr = document.createElement('tr');
+		let employee = employees[i]
+		let td = document.createElement('td');
+		
+		console.log("employee", employee)
+		td.innerHTML = employee;
+		
+		//let tr = '<tr>' + employee.title  + '</tr>'
+		// tr.innerHTML += tr;
+		
+		tr.appendChild(td);
+	}
+
+	tbody.appendChild(tr);
+  //
+	table.appendChild(tbody);
+	document.getElementById("conteiner-employees").appendChild(tr);
+};*/
