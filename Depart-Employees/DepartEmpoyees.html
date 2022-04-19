@@ -95,8 +95,8 @@
             
             saveEmployees(textTitle.value)
             textTitle.value = " ";
-            
-            fillListEmployees("employees-list");
+            refreshEmployees();
+           
         };
 
         function saveEmployees(nameValue){
