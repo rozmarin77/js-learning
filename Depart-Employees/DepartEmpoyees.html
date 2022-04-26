@@ -20,24 +20,33 @@
 
           
          
-         <table id="employees-list" style="border-style: solid" size="auto">
+         <table id="employees-list" style="border-style: solid" white-space="pre-line">
            <thead>
                 <th>Id</th> 
                 <th>Name</th>
                 <th>Position</th>
+                <th>Department</th> 
+                <th>Actions</th> 
             </thead>
             <tbody id="conteiner-employees"></tbody>
          </table>
 
          <p>Enter employee<br>
          <input type="text" id="employeeInput">
-         <select type="text" onchange="positionChanged(event)" id="position">
+         <select type="text" onchange="positionChanged(event)" id="position-select">
             <option value="worker">Worker</option>
             <option value="manager">Manager</option>                            
+        </select>
+        <select type="text" onchange="departmentChanged(event)" id="department-select">
+            <option value="marketing">Marketing</option>
+            <option value="technical">Technical</option> 
+            <option value="advertising">Advertising</option>
+            <option value="it">IT</option>                            
         </select>
          <input type="button" id="addEmployee" value="Add employee" onclick="addEmployeeClick()">
          <br></br>
 
+         
     <script>
 
         window.onload = init;
@@ -49,9 +58,10 @@
         let departments = [
             new Department('Marketing'),
             new Department('Technical'),
-            new Department('Advertising')
-        ]
-        console.log(departments);
+            new Department('Advertising'),
+            new Department('IT')
+        ];
+        console.log('departments', departments);
         
         function init(){
             let button = document.getElementById("showDepartment")
@@ -62,32 +72,53 @@
 
             let buttonClear = document.getElementById("clearDepartment")
             buttonClear.onclick = clearDepartmentClick;
+
+            refreshEmployees();
         };
 
         let positions = {
             manager: 'manager',
             worker: 'worker'
+        
         };
 
-        function Employee(id, name, position) {
+        let department = {
+            marketing: 'marketing',
+            technical: 'technical',
+            advertising: 'advertising',
+            it: 'it',
+        
+        };
+
+        function Employee(id, name, position, department) {
             this.id = id;
             this.name = name;
             this.position = position;
+            this.department = department;
 
-        }
+        };
 
         let lastEmployeeId = 2;
 
         let employees = [
-            new Employee(1, 'Rone', positions.worker),
-            new Employee(2, 'Vasya', positions.manager),
+            new Employee(1, 'Rone', positions.worker, department.marketing),
+            new Employee(2, 'Vasya', positions.manager, department.advertising),
         ];
-        console.log(employees)
+        console.log('employees',employees);
+
         function positionChanged(e) {
             let select = e.target;
-            console.log(select.value);
-           // select.value = positions.value //посмотреть как работать будет
+            console.log('target pos', e.target)
+            console.log("positionChanges", select.value);
+            // select.value = positions.value //посмотреть как работать будет
             //console.log(select.closest('tr').dataset.employeeId);
+        };
+
+        function departmentChanged(e) {
+            let select = e.target;
+            console.log('target dep', e.target)
+            console.log("departmentChenges", select.value);
+        
         };
         
         function addEmployeeClick(){
@@ -99,21 +130,22 @@
            
         };
 
-        function saveEmployees(nameValue){
+        function saveEmployees(employeeName){
             let idEmp = ++lastEmployeeId ;
-            let mySelectOption = getValue();
-           
-            let employee = {
-                id: idEmp, 
-                name: nameValue,
-                position: mySelectOption
-                }
-                function getValue(){
-                    let selectedValue = position.value;
-                    return selectedValue;
-                }
-                employees.push(employee);
-                console.log(employees);
+         
+            let  employee = new Employee(idEmp, employeeName, getSelectedPosition(), getSelectedDepartment()); 
+                
+            employees.push(employee);
+            console.log("addemployee", employees);
+        };
+
+        function getSelectedPosition(){
+            return document.getElementById('position-select').value;
+        };
+
+
+        function getSelectedDepartment(){
+            return document.getElementById('department-select').value;
         };
 
         function fillListEmployees(listId){
@@ -121,8 +153,13 @@
             listElement.innerHTML = " ";
 		    for(let i = 0; i < employees.length; i++){
 			    let employee = employees[i];
-			    let str = '<td>' + employee.id + '</td>' + '<td>' + employee.name + '</td>' + '<td>' + employee.position + '</td>'  
-			    listElement.innerHTML += str; 
+                let str =   '<td>' + employee.id + '</td>' + 
+                            '<td>' + employee.name + '</td>' + 
+                            '<td>' + employee.position + '</td>' + 
+                            '<td>' + employee.department + '</td>' +
+                            '<td>' + '<a href="" onclick="editEmployeeClick()">edit</a>' + '</td>' 
+
+			    listElement.innerHTML += '<tr>' + str + '</tr>'; 
 		    }
 			
 	    };
