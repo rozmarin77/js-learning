@@ -61,20 +61,36 @@
         listElement.innerHTML = " ";
 		for(let i = 0; i < books.length; i++){
 			let book = books[i];
-			let str = '<td>' + book.name + '</td>' + '<td>' + book.age + '</td>' + '<td>' + book.country + '</td>'  
-			listElement.innerHTML += str; 
+			let str = '<td>' + book.name + '</td>' + 
+			         '<td>' + book.age + '</td>' + 
+					 '<td>' + book.country + '</td>'+
+			         '<td>' + '<a href="" onclick="editClick("conteiner-employees")">edit</a>' + '</td>'   
+			listElement.innerHTML +=  str ;  
 		}
 			
 	};
-    fillListBooks('tbody');
+    
+	fillListBooks('tbody');
+	//editEmployeeClick("conteiner-employees")
 
+	function editClick(listId){
+	 	let listElement = document.getElementById(listId)
+      listElement.innerHTML = " ";
+		for(let i = 0; i < books.length; i++){
+			let book = books[i];
+			console.log('book', book)
+			let str = '<td>' + book.name + '</td>' + 
+			         '<td>' + book.age + '</td>' + 
+					 '<td>' + " " + '</td>'+
+			         '<td>' + '<a href="" onclick="editEmployeeClick("conteiner-employees")">edit</a>' + '</td>'   
+			listElement.innerHTML +=  str ;  
+		}
+			
+	};
 	
-</script>
+	
+	/*сделать новый файл с этой фкнкцией
 
-</body>
-
-</html>
-сделать новый файл с этой фкнкцией
 
 function fillListEmployees(){
 	let table = document.createElement("table");
@@ -105,9 +121,10 @@ function fillListEmployees(){
 	 document.getElementById("conteiner-employees").appendChild(table);
 	 
  };
-  еще одна хз
+                 еще одна хз
+  
 
- /*function fillListEmployees(listId){
+function fillListEmployees(listId){
 	let table = document.createElement("table");
 	let tbody = document.createElement("tbody");
 	let tr = document.createElement('tr');//создаем tr-ку
@@ -137,3 +154,9 @@ function fillListEmployees(){
 	table.appendChild(tbody);
 	document.getElementById("conteiner-employees").appendChild(tr);
 };*/
+	
+</script>
+
+</body>
+
+</html>
