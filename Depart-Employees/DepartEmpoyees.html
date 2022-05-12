@@ -18,15 +18,13 @@
          <input type="button" id="showEmployee" value="Show employees" onclick="refreshEmployees()">
          <input type="button" id="clearEmployee" value="Clear employees">
 
-          
-         
-         <table id="employees-list" style="border-style: solid" white-space="pre-line">
+         <table id="employees-list" style="border-style: solid" >
            <thead>
                 <th>Id</th> 
                 <th>Name</th>
-                <th>Position</th>
-                <th>Department</th> 
-                <th>Actions</th> 
+                <th style="width: 150px;">Position</th>
+                <th style="width: 150px;">Department</th> 
+                <th style="width: 150px;">Actions</th> 
             </thead>
             <tbody id="conteiner-employees"></tbody>
          </table>
@@ -44,16 +42,17 @@
             <option value="it">IT</option>                            
         </select>
          <input type="button" id="addEmployee" value="Add employee" onclick="addEmployeeClick()">
-         <br></br>
+        
 
-         
     <script>
 
-        window.onload = init;
-        
-        function Department(title){
-            this.title = title;
-        };
+        let department = {
+            marketing: 'marketing',
+            technical: 'technical',
+            advertising: 'advertising',
+            it: 'it',
+        }
+        let editingEmployee = {};
 
         let departments = [
             new Department('Marketing'),
@@ -61,8 +60,33 @@
             new Department('Advertising'),
             new Department('IT')
         ];
-        console.log('departments', departments);
+
+        let positions = {
+            manager: 'manager',
+            worker: 'worker'
+        }
+
+        let lastEmployeeId = 2;
+
+        let employees = [
+            new Employee(1, 'Rone', positions.worker, department.marketing),
+            new Employee(2, 'Vasya', positions.manager, department.it),
+        ];
+
+        function Employee(id, name, position, department) {
+            this.id = id;
+            this.name = name;
+            this.position = position;
+            this.department = department;
+        }
+
+
+        window.onload = init;
         
+        function Department(title){
+            this.title = title;
+        }
+
         function init(){
             let button = document.getElementById("showDepartment")
             button.onclick = showDepartmentClick;
@@ -74,52 +98,20 @@
             buttonClear.onclick = clearDepartmentClick;
 
             refreshEmployees();
-        };
-
-        let positions = {
-            manager: 'manager',
-            worker: 'worker'
-        
-        };
-
-        let department = {
-            marketing: 'marketing',
-            technical: 'technical',
-            advertising: 'advertising',
-            it: 'it',
-        
-        };
-
-        function Employee(id, name, position, department) {
-            this.id = id;
-            this.name = name;
-            this.position = position;
-            this.department = department;
-
-        };
-
-        let lastEmployeeId = 2;
-
-        let employees = [
-            new Employee(1, 'Rone', positions.worker, department.marketing),
-            new Employee(2, 'Vasya', positions.manager, department.advertising),
-        ];
-        console.log('employees',employees);
+        }
 
         function positionChanged(e) {
             let select = e.target;
-            console.log('target pos', e.target)
-            console.log("positionChanges", select.value);
-            // select.value = positions.value //посмотреть как работать будет
-            //console.log(select.closest('tr').dataset.employeeId);
-        };
+            //console.log('target pos', e.target)
+            //console.log("positionChanges", select.value);
+            
+        }
 
         function departmentChanged(e) {
             let select = e.target;
-            console.log('target dep', e.target)
-            console.log("departmentChenges", select.value);
-        
-        };
+           // console.log('target dep', e.target)
+           //console.log("departmentChenges", select.value);
+        }
         
         function addEmployeeClick(){
             let textTitle = document.getElementById("employeeInput")
@@ -127,8 +119,7 @@
             saveEmployees(textTitle.value)
             textTitle.value = " ";
             refreshEmployees();
-           
-        };
+        }
 
         function saveEmployees(employeeName){
             let idEmp = ++lastEmployeeId ;
@@ -137,40 +128,94 @@
                 
             employees.push(employee);
             console.log("addemployee", employees);
-        };
+        }
 
         function getSelectedPosition(){
             return document.getElementById('position-select').value;
-        };
-
+        }
 
         function getSelectedDepartment(){
             return document.getElementById('department-select').value;
-        };
+        }
 
+        //якорь # для tag a
+        //apostraphy or quote escape in javascript
         function fillListEmployees(listId){
 	 	    let listElement = document.getElementById(listId)
             listElement.innerHTML = " ";
 		    for(let i = 0; i < employees.length; i++){
-			    let employee = employees[i];
+                let employee = employees[i];
+                let trId = 'emp-' + employee.id;
                 let str =   '<td>' + employee.id + '</td>' + 
                             '<td>' + employee.name + '</td>' + 
                             '<td>' + employee.position + '</td>' + 
                             '<td>' + employee.department + '</td>' +
-                            '<td>' + '<a href="" onclick="editEmployeeClick()">edit</a>' + '</td>' 
-
-			    listElement.innerHTML += '<tr>' + str + '</tr>'; 
+                            '<td>' + '<a href="#" onclick="editEmployeeClick(\'' + trId + '\')">edit</a>' + '</td>';
+                                
+			    listElement.innerHTML += '<tr id="' + trId + '" data-employee-id="' + employee.id + '" data-position="' +
+                                  employee.position + '" data-department="' + employee.department + '">' + str + '</tr>'; 
 		    }
 			
-	    };
-    
+	    }
+        function editEmployeeClick(trId){
+	 	    let trElement = document.getElementById(trId);
+            var employeeId = trElement.getAttribute('data-employee-id');
+            var position = trElement.getAttribute('data-position');
+            var department = trElement.getAttribute('data-department');
+
+            var positionTd = trElement.children[2];
+            var departmentTd = trElement.children[3];
+            var actionTd = trElement.children[4];
+            actionTd.innerHTML = `<a href="#" onclick="saveChenges()">save</a>
+                                  <a href="#" onclick="cancelChenges()">cancel</a>`; 
+
+		   editingEmployee.id = employeeId;
+
+            positionTd.innerHTML = 
+                `<select onchange="positionChanged(event, ${employeeId})">
+                    <option value="worker" ${position == 'worker' ? "selected" : ""}>Worker</option>
+                    <option value="manager" ${position == 'manager' ? "selected" : ""}>Manager</option>
+                </select>`;
+            
+            console.log('position', position)
+            departmentTd.innerHTML = 
+                `<select onchange="departmentChanged(event, ${employeeId})">
+                        <option value="marketing" ${department == 'marketing' ? "selected" : ""}>Marketing</option>
+                        <option value="technical" ${department == 'technical' ? "selected" : ""}>Technical</option>
+                        <option value="advertising" ${department == 'advertising' ? "selected" : ""}>Advertising</option>
+                        <option value="it" ${department == 'it' ? "selected" : ""}>IT</option>
+                </select>`;    
+
+		}
+
+        function saveChenges() {
+            var foundEmployee = employees.find(emp => emp.id == editingEmployee.id);
+            foundEmployee.position = editingEmployee.position;
+            foundEmployee.department = editingEmployee.department;
+            
+            refreshEmployees();
+        }
+        
+        function cancelChenges() {
+            refreshEmployees();
+        }
+
+        function positionChanged(e, employeeId) {
+            var selectedPosition = e.target.value;
+            editingEmployee.position = selectedPosition;
+        }
+
+        function departmentChanged(e, employeeId) {
+            var selectedDepartment = e.target.value;
+            editingEmployee.department = selectedDepartment;
+        }
         function refreshEmployees(){
             fillListEmployees("conteiner-employees")
-        }    
+        } 
 
         function showDepartmentClick(){
             refreshDepartments();
-        };
+        }
 
         function addDepartmentClick(){
             let textTitle = document.getElementById("departmentInput")
@@ -178,7 +223,7 @@
             saveDepartment(textTitle.value)
             textTitle.value = " "
             refreshDepartments();
-        };
+        }
 
         function refreshDepartments(){
             fillListDepartments("departments-list");
@@ -187,28 +232,29 @@
         function saveDepartment(titleValue){
             let department = {
                 title: titleValue
-            };
+            }
             departments.push(department);
             console.log(departments);
-        };
+        }
 
         function fillListDepartments(listId) {
 
             let listElement = document.getElementById(listId)
-            listElement.innerHTML = " ";
+            listElement.innerHTML = "";
 
             for (let i = 0; i < departments.length; i++) {
                 let department = departments[i]
                 let li = '<li>' + department.title  + '</li>'
                 listElement.innerHTML += li;
             }
-        };
-       
 
+            
+        }
+       
         function clearDepartmentClick(){
             let listElement = document.getElementById("departments-list")
             listElement.innerHTML = "";
-        };
+        }
     
         
     </script>
