@@ -1,29 +1,15 @@
-/*let arr = [3,2]; // меняем местами 2 и 3
-let temp = arr[0];
-arr[0] = arr[1];
-arr[1] = temp;
+let arr = [3,2]; // меняем местами 2 и 3
+let temp = arr[0];//3
+arr[0] = arr[1];//2 , 3
 console.log(arr)
+arr[1] = temp;//3
+console.log('5', arr)//2, 3
+
 
 //console.log(Math.trunc(3/2))метод округления после нуля
 
-function IncreasNums(nums){// меняем цифры в массиве по возрастанию
-
-    for (i = 0; i < nums.length; i++){
-        for (j = i+1; j < nums.length; j++){
-            if(nums[i] > nums[j] ){
-                let temp = nums[i];
-                nums[i] = nums[j];
-                console.log(nums[i], nums[j])
-                nums[j] = temp;
-            }
-        }
-    }
-    return nums;
-}
-console.log('res',IncreasNums([4,3,2,8]));*/
-
-
-var now = new Date(); //Текущя дата
+//разобраться что это и к ччему относится
+/*var now = new Date(); //Текущя дата
 console.log('1', now)
 var today = new Date(now.getFullYear(), now.getMonth(), now.getDate()); //Текущя дата без времени
 console.log('2', today)
@@ -40,4 +26,4 @@ if (today < dobnow) {
   age = age-1;
 }
 
-console.log(`Возраст: ${age}`);
+console.log(`Возраст: ${age}`);*/
