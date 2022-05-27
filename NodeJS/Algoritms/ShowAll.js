@@ -1,4 +1,4 @@
-let fanats = ' ';
+let fanats = ' ';// пустая строка
 let test = [//массив из объектов
     {fanat: "Anna", age: 23},//свойства имя и возраст
     {fanat: "Rita", age: 3},
@@ -7,5 +7,6 @@ let test = [//массив из объектов
 ];
 
 for (let i = 0; i < test.length; i++)
-    fanats += test[i].fanat + ' ' +  test[i].age + ' ';//вытаскиваем свойства объектов
+    fanats += test[i].fanat + ' ' +  test[i].age + ' ';//вытаскиваем свойства объектов и складываем строки
+
 console.log(fanats);

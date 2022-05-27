@@ -8,8 +8,8 @@ function IncreasNums(nums){// меняем цифры в массиве по в�
                 nums[j] = temp;
             }
         }
-    }s
+    }
     return nums;
 }
-console.log('res',IncreasNums([4,3,2,8]));
+console.log('res', IncreasNums([4,3,2,8]));
 

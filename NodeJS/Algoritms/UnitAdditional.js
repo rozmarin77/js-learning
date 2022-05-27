@@ -1,5 +1,6 @@
+
 function oneAdditional(nums) {// [9,9]наш массив
-    let add = 1;//добавляем 1 к последнему числу массив
+    let add = 1;//добавляем 1 к последнему числу массива
     for (let i = nums.length - 1; i >= 0; i--) {// заходим в цикл i = 9 начинаем с конца массива
         nums[i]++;// 9+1=10
         if(nums[i] == 10) {// в скобках у нас условие!!!! если намс i = 10
@@ -8,11 +9,10 @@ function oneAdditional(nums) {// [9,9]наш массив
             return nums;  //это тоже инструкция, если предыдущие инструкции не выполняются то вып-ся эта          
         }
     }
-    
     nums.unshift(1);//этот метод добавляет элементы в начало массива
     return nums;            
 }
-console.log('one',oneAdditional([9,9]));
+console.log('one', oneAdditional([9,9]));
 
 
 //решить
