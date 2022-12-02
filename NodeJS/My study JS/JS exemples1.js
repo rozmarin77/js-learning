@@ -1,12 +1,4 @@
-<!doctype html>
-<!-- 
-<script src="alert.js"></script> -->
-
-
-<script>
-
-
-/*For (let a = 3; a > 4; a ++) {
+ /*For (let a = 3; a > 4; a ++) {
     for (let b =1; d < 3; b ++){
         let input= prompt (`Значение на координатах($ {a}; $ {B}))
     }
@@ -218,4 +210,3 @@ return "anything";
 
 alert(obj);*/
 
-</script>

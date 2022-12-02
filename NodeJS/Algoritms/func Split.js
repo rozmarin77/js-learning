@@ -27,7 +27,7 @@ function split(text){
     }
     return words;
 }
-let words = split('aga ss')
+let words = split('ags s')
 
 console.log('split result', words);
 
